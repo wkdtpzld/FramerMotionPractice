@@ -1,26 +1,79 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components'
+import { motion } from 'framer-motion';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+      {/* <Box transition={{ type: "spring", bounce: 0.5 }} initial={{ scale: 2 }} animate={{ scale: 1, rotateZ: 360 }} /> */}
+      <Box variants={BoxVariants} initial="start" animate="end" >
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+      </Box>
+    </Wrapper>
   );
 }
 
 export default App;
+
+const Wrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Box = styled(motion.div)`
+  width: 200px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
+  background-color: #b33ba9;
+  border-radius: 15px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+`;
+
+const Circle = styled(motion.div)`
+    background-color: white;
+    height: 70px;
+    width: 70px;
+    border-radius: 35px;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.1);
+`;
+
+const myVars = {
+  start: { scale: 0 },
+  end: { scale: 1, rotateZ: 360, transition: { type: "spring", bounce: 0.5 } }
+}
+
+const BoxVariants = {
+  start: {
+    opacity: 0,
+    scale: 0.5,
+  },
+  end: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      duration: 0.5,
+      bounce: 0.5,
+      delayChildren: 0.5,
+      staggerChildren: 0.1
+    }
+  }
+}
+
+const circleVariants = {
+  start: {
+    opacity: 0,
+    y: 10
+  },
+  end: {
+    opacity: 1,
+    y: 0
+  }
+}
